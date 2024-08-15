@@ -80,25 +80,25 @@ void loop() {
   if (ps2x.Button(PSB_R1)) spdRatio = 1.0; // when PSB_R1 is holded, spdRatio become boosted
 
   // Calculate the ratio to prevent the motor power value to go over 255
-  double y = sense(-ps2x.Analog(PSS_LY)) ;
-  double x = sense(ps2x.Analog(PSS_LX)) ;
-  double rx = sense(ps2x.Analog(PSS_RX)) ;
+  double y = sense(-ps2x.Analog(PSS_LY)) ; // imput analog value from the y axis of the left joystick 
+  double x = sense(ps2x.Analog(PSS_LX)) ; // imput analog value from, the x axis of left joystick
+  double rx = sense(ps2x.Analog(PSS_RX)) ; // imput analog value from the x axis of the right joystick
   double ratio = max(abs(y) + abs(rx), 255); // if a motor power go pass 255, ratio = 255 
 
   // Calculate motor power by inputs from PS2 gamepad
   double leftPower = (y + rx) / ratio * spdRatio; // multiplied by spdRatio to set normal or boosted speed
   double rightPower = (y - rx) / ratio * spdRatio; // divided by ratio to keep these value equal or lower than 1 
-  double midPower = x * spdRatio; 
+  double midPower = x * spdRatio; // doesn't need to be divided by ratio because it is not controlled by any values except from x so it cannot be over 1 or under -1
 
   // Set motor power
-  setMotorPower(leftMotorPin1, leftMotorPin2, leftPower);
-  setMotorPower(rightMotorPin1, rightMotorPin2, rightPower);
-  setMotorPower(middleMotorPin1, middleMotorPin2, midPower);
+  setMotorPower(leftMotorPin1, leftMotorPin2, leftPower); // set left motor power
+  setMotorPower(rightMotorPin1, rightMotorPin2, rightPower); // set right motor power
+  setMotorPower(middleMotorPin1, middleMotorPin2, midPower); // set middle motor power
 
   // Control intake motor
-  if (ps2x.Button(PSB_PAD_UP)) {
+  if (ps2x.Button(PSB_PAD_UP)) { // if the dpad up button is pressed
     setMotorPower(intakeMotorPin1, intakeMotorPin2, 1); // turn on the intake
-  } else if (ps2x.Button(PSB_PAD_DOWN)) {
+  } else if (ps2x.Button(PSB_PAD_DOWN)) { // if the dpad down button is pressed
     setMotorPower(intakeMotorPin1, intakeMotorPin2, 0); // turn off the intake
   }
 
