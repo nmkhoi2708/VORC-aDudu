@@ -76,7 +76,7 @@ void loop() {
   ps2x.read_gamepad(false, 0);
 
   // Set speed ratio ( normal or boosted )
-  double spdRatio = 0.6; //normal speed
+  double spdRatio = 0.6; // normal speed
   if (ps2x.Button(PSB_R1)) spdRatio = 1.0; // when PSB_R1 is holded, spdRatio become boosted
 
   // Calculate the ratio to prevent the motor power value to go over 255
