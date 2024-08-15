@@ -24,7 +24,7 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 // Function to set motor power
 void setMotorPower(int motorPin1, int motorPin2, double power) {
   if(power >= 0 ) {
-    pwm.setPWM(motorPin1, motorPin2, power* 4096); // power multiplied by 4096 because ít range is 0 -> 1 
+    pwm.setPWM(motorPin1, motorPin2, power* 4096); // power multiplied by 4096 because its range is 0 -> 1 
     pwm.setPWM(motorPin1, motorPin2, 0);
   }
   else if ( power < 0 ) {
